@@ -1,5 +1,5 @@
 import paho.mqtt.client as mqtt
-import google.cloud.pubsub as pubsub
+
 
 message = ""
 
@@ -11,16 +11,8 @@ def on_connect(client, userdata, flags, rc):
 def on_message(client, userdata, msg):
     messageRaw = str(msg.payload)
     message = messageRaw[2:len(messageRaw)-1]
-    publish_message(message)
+    print(message)
 
-
-def publish_message(message):
-    pubsub_client = pubsub.Client()
-    topic_name = 'sensor-data-m2m'
-    topic = pubsub_client.topic(topic_name)
-    topic.create()
-    topic.publish(message)
-    print("Printed to pub/sub topic "+ topic_name)
 
 
 def main():
