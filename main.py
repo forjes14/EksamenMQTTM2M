@@ -1,7 +1,7 @@
 import paho.mqtt.client as mqtt
+import json
+import requests
 
-
-message = ""
 
 def on_connect(client, userdata, flags, rc):
     print("Connected with result code "+str(rc))
@@ -9,10 +9,21 @@ def on_connect(client, userdata, flags, rc):
 
 
 def on_message(client, userdata, msg):
-    messageRaw = str(msg.payload)
-    message = messageRaw[2:len(messageRaw)-1]
-    print(message)
+    try:
+        message = json.loads(str(msg.payload)[2:len(str(msg.payload))-1])
+        print_message(message)
+    except ValueError:
+        print("Message not in JSON format.")
 
+
+def print_message(message):
+    print("location : " + message["location"])
+    print("temp : " + message["temp"])
+    print("humidity : " + message["humidity"])
+    print("movement : " + message["movement"])
+    print("photoVal : " + message["photoVal"])
+    print("ppm : " + message["ppm"])
+    print("")
 
 
 def main():
