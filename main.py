@@ -30,8 +30,8 @@ def main():
     client = mqtt.Client()
     client.on_connect = on_connect
     client.on_message = on_message
-    client.username_pw_set(username="123", password="123")
-    client.connect(host="m21.cloudmqtt.com", port=11583)
+    client.username_pw_set(username="", password="")
+    client.connect(host="", port=)
     client.loop_forever()
 
 
